@@ -16,6 +16,10 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('books.index')" :active="request()->routeIs('books.index')">Livros</x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -35,7 +39,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            Meus Dados
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -45,7 +49,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                Sair
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -72,6 +76,12 @@
             </x-responsive-nav-link>
         </div>
 
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('books.index')" :active="request()->routeIs('books.index')">
+                Livros
+            </x-responsive-nav-link>
+        </div>
+
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
@@ -81,7 +91,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    Meus Dados
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
@@ -91,7 +101,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        Sair
                     </x-responsive-nav-link>
                 </form>
             </div>
