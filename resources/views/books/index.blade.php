@@ -1,13 +1,14 @@
 <x-app-layout>
     <div class="container mx-auto px-4 py-6">
         <!-- Cabeçalho com título, botão de cadastro e formulário de pesquisa -->
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-semibold text-gray-800">Livros Cadastrados</h2>
-            <form method="GET" action="{{ route('books.index') }}" class="flex items-center">
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+            <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 sm:mb-0">Livros Cadastrados</h2>
+            <form method="GET" action="{{ route('books.index') }}" class="flex items-center mb-4 sm:mb-0">
                 <input type="text" name="search" placeholder="Pesquisar por título, autor ou ISBN"
                        class="border border-gray-300 rounded py-2 px-4 mr-2">
                 <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Pesquisar
+                    <span class="hidden sm:inline">Pesquisar</span>
+                    <i class="fas fa-search sm:hidden"></i>
                 </button>
             </form>
             @if(auth()->user()->isAdmin())
@@ -45,9 +46,15 @@
                                     </a>
                                 @endif
                                 <!-- Botão para reservar -->
-                                <a href="{{ route('books.reserve', $book->id) }}" class="text-yellow-600 hover:text-yellow-900 mr-2">
-                                    <i class="fas fa-bookmark"></i>
-                                </a>
+                                @if(auth()->user()->isReservedBy($book->id))
+                                    <a href="{{ route('books.cancelReservation', $book->id) }}" class="text-red-600 hover:text-red-900 mr-2">
+                                        <i class="fas fa-times-circle"></i>
+                                    </a>
+                                @else
+                                    <a href="{{ route('books.reserve', $book->id) }}" class="text-yellow-600 hover:text-yellow-900 mr-2">
+                                        <i class="fas fa-bookmark"></i>
+                                    </a>
+                                @endif
                                 @if(auth()->user()->isAdmin())
                                     <!-- Formulário para excluir com Alpine.js -->
                                     <form action="{{ route('books.destroy', $book->id) }}" method="POST"

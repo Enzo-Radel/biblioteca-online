@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    public function isReservedBy($bookId)
+    {
+        return $this->books()->where('book_id', $bookId)->exists();
+    }
 }

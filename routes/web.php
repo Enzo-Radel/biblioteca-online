@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('books', BookController::class);
     Route::get('/books/reserve/{book_id}', [BookController::class, 'reserve'])->name('books.reserve');
+    Route::get('/books/cancel-reservation/{book_id}', [BookController::class, 'cancelReservation'])->name('books.cancelReservation');
 });
 
 require __DIR__.'/auth.php';
