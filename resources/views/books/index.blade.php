@@ -23,6 +23,7 @@
                 <thead>
                     <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                         <th class="py-3 px-6 text-left">Título</th>
+                        <th class="py-3 px-6 text-left">Autor</th>
                         <th class="py-3 px-6 text-left">ISBN</th>
                         <th class="py-3 px-6 text-left">Quantidade</th>
                         <th class="py-3 px-6 text-center">Ações</th>
@@ -32,6 +33,7 @@
                     @forelse($books as $book)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="py-3 px-6 text-left">{{ $book->title }}</td>
+                        <td class="py-3 px-6 text-left">{{ $book->author }}</td>
                         <td class="py-3 px-6 text-left">{{ $book->isbn }}</td>
                         <td class="py-3 px-6 text-left">{{ $book->quantity }}</td>
                         <td class="py-3 px-6 text-center">
