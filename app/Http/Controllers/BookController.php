@@ -31,7 +31,7 @@ class BookController extends Controller
     public function create()
     {
         if (!auth()->user()->isAdmin()) {
-            return redirect()->route('books.index')->with('error', 'Acesso negado.');
+            return redirect()->route('books.index')->with('danger', 'Acesso negado.');
         }
 
         return view('books.create');
@@ -43,7 +43,7 @@ class BookController extends Controller
     public function store(Request $request)
     {
         if (!auth()->user()->isAdmin()) {
-            return redirect()->route('books.index')->with('error', 'Acesso negado.');
+            return redirect()->route('books.index')->with('danger', 'Acesso negado.');
         }
 
         $request->validate([
@@ -57,7 +57,7 @@ class BookController extends Controller
         Book::create($request->all());
 
         return redirect()->route('books.index')
-                         ->with('success', 'Book created successfully.');
+                         ->with('success', 'Livro criado com sucesso.');
     }
 
     /**
@@ -66,7 +66,7 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         if (!auth()->user()->isAdmin()) {
-            return redirect()->route('books.index')->with('error', 'Acesso negado.');
+            return redirect()->route('books.index')->with('danger', 'Acesso negado.');
         }
 
         return view('books.edit', compact('book'));
@@ -78,7 +78,7 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         if (!auth()->user()->isAdmin()) {
-            return redirect()->route('books.index')->with('error', 'Acesso negado.');
+            return redirect()->route('books.index')->with('danger', 'Acesso negado.');
         }
 
         $request->validate([
@@ -92,7 +92,7 @@ class BookController extends Controller
         $book->update($request->all());
 
         return redirect()->route('books.index')
-                         ->with('success', 'Book updated successfully.');
+                         ->with('success', 'Livro atualizado com sucesso.');
     }
 
     /**
@@ -101,13 +101,13 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         if (!auth()->user()->isAdmin()) {
-            return redirect()->route('books.index')->with('error', 'Acesso negado.');
+            return redirect()->route('books.index')->with('danger', 'Acesso negado.');
         }
 
         $book->delete();
 
         return redirect()->route('books.index')
-                         ->with('success', 'Book deleted successfully.');
+                         ->with('success', 'Livro deletado com sucesso.');
     }
 
     public function reserve($book_id)
@@ -116,11 +116,11 @@ class BookController extends Controller
         $user = auth()->user();
 
         if (!$book) {
-            return redirect()->route('books.index')->with('error', 'Livro não encontrado.');
+            return redirect()->route('books.index')->with('danger', 'Livro não encontrado.');
         }
 
         if ($user->books()->where('book_id', $book_id)->exists()) {
-            return redirect()->route('books.index')->with('error', 'Você já reservou este livro.');
+            return redirect()->route('books.index')->with('danger', 'Você já reservou este livro.');
         }
 
         if ($book->quantity > 0) {
@@ -128,7 +128,7 @@ class BookController extends Controller
             $user->books()->attach($book_id);
             return redirect()->route('books.index')->with('success', 'Livro reservado com sucesso.');
         } else {
-            return redirect()->route('books.index')->with('error', 'Não há exemplares disponíveis para reserva.');
+            return redirect()->route('books.index')->with('danger', 'Não há exemplares disponíveis para reserva.');
         }
     }
 
@@ -138,11 +138,11 @@ class BookController extends Controller
         $user = auth()->user();
 
         if (!$book) {
-            return redirect()->route('books.index')->with('error', 'Livro não encontrado.');
+            return redirect()->route('books.index')->with('danger', 'Livro não encontrado.');
         }
 
         if (!$user->books()->where('book_id', $book_id)->exists()) {
-            return redirect()->route('books.index')->with('error', 'Você não reservou este livro.');
+            return redirect()->route('books.index')->with('danger', 'Você não reservou este livro.');
         }
 
         $book->increment('quantity');
