@@ -43,4 +43,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * The books that belong to the user.
+     */
+    public function books()
+    {
+        return $this->belongsToMany(Book::class, 'book_user');
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
 }

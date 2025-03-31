@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('books', BookController::class);
+    Route::get('/books/reserve/{book_id}', [BookController::class, 'reserve'])->name('books.reserve');
 });
 
 require __DIR__.'/auth.php';

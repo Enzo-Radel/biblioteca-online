@@ -16,4 +16,12 @@ class Book extends Model
         'isbn',
         'quantity'
     ];
+
+    /**
+     * The users that belong to the book.
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'book_user');
+    }
 }
